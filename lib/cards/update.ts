@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getSupabaseClient } from "../supabase";
 
-export interface UpdateCardInput {
+interface UpdateCardInput {
   id: string;
   title: string;
   description?: string | null;
@@ -12,14 +12,16 @@ export interface UpdateCardInput {
 /**
  * Milestone 2 — card UPDATE op.
  *
- * Server action: updates an existing card's title/description by id.
+ * Internal helper: updates an existing card's title/description by id.
+ * Only {@link updateCardAction} is exported, so this module publishes a
+ * single server-action endpoint.
  * Single responsibility: this module owns card updates only; create,
  * read, and delete live in sibling modules owned by other crewmates.
  *
- * Returns the updated row count so callers can distinguish "card not
+ * Returns the updated row count so the caller can distinguish "card not
  * found" from a successful write.
  */
-export async function updateCard(input: UpdateCardInput): Promise<number> {
+async function updateCard(input: UpdateCardInput): Promise<number> {
   const title = input.title.trim();
   if (!input.id) {
     throw new Error("updateCard: card id is required");
