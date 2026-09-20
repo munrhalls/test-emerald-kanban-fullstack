@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Project notes
 
-- Emerald Kanban — milestone 1 tracer bullet. Next.js 16 (App Router) + React 19 + Tailwind CSS v4.
+- Emerald Kanban — Next.js 16 (App Router) + React 19 + Tailwind CSS v4. Milestones and parallel-work split live in `PLAN.md`.
 - Theme tokens live in `src/app/globals.css` under `@theme inline` (abyss/panel/emerald/gild/mist palette, `font-display`/`font-body`).
 - Font pairing: Fraunces (display) + Space Grotesk (body) via `next/font/google` in `src/app/layout.tsx`.
 - Data integration point: `getTracerValue()` in `src/lib/tracer.ts` — a follow-up task wires it to Supabase; keep the signature stable.
