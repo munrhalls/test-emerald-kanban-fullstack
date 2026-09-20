@@ -9,9 +9,19 @@ product_surface:
   - path: "src/app/page.tsx"
     kind: web-ui
     drives: "npm run dev, then open http://localhost:3000; the home page renders the Emerald theme shell and the live conduit card fed by getTracerValue() in src/lib/tracer.ts"
+  - path: lib
+    kind: library
+    drives: [typecheck]
+  - path: supabase/migrations
+    kind: sql-migrations
+    drives: [manual-review]  # applied to hosted Supabase; no local DB in this repo
+  - path: supabase/README.md
+    kind: docs
+    drives: [manual-review]
 
 commands:
   lint: "npm run lint"
+  test: npm run typecheck
 
 test:
   instructions: |
@@ -21,7 +31,18 @@ test:
       (dark green-black background, emerald accents, Fraunces display font)
       and the "Live conduit" card shows the value returned by
       `getTracerValue()` from `src/lib/tracer.ts` (currently a hardcoded
-      placeholder string). Check at least one narrow portrait viewport and
-      one landscape viewport for horizontal overflow or broken layout.
+      placeholder string until wired to lib/getTracerValue.ts). Check at
+      least one narrow portrait viewport and one landscape viewport for
+      horizontal overflow or broken layout.
+    - Data layer: the live surface is the hosted Supabase project (tracer
+      table) plus the typed client in lib/. Validate by running
+      `npm run typecheck` and, when NEXT_PUBLIC_SUPABASE_URL /
+      NEXT_PUBLIC_SUPABASE_ANON_KEY are set, calling getTracerValue() and
+      expecting the seed message. Without credentials the migration SQL and
+      client factory are reviewed statically.
     `npm run lint` must pass. There is no unit-test suite yet; the live
     browser drive is the behavioral evidence for this milestone.
+
+ignore_patterns:
+  - node_modules/**
+  - package-lock.json
