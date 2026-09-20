@@ -5,7 +5,8 @@ generated client and needs no ORM/migration step before the first query.
 
 ## Project
 
-A free-tier Supabase project hosts the `tracer` table.
+A free-tier Supabase project hosts the `tracer` table plus the
+milestone-2 kanban tables (`boards`, `columns`, `cards`).
 
 - **Project**: `emerald-kanban` (org `emerald-kanban`, region `eu-west-1`)
 - **Project ref**: `rgkrnztyzqvnrsgjzjjg`
@@ -35,9 +36,19 @@ supabase projects api-keys --project-ref <ref>   # shows the anon key
 
 ## Applying the migration
 
-The schema lives in `supabase/migrations/20260920000000_create_tracer.sql`
-(creates the `tracer` table, seeds one row, enables RLS with an anon
-read policy).
+The schema lives in `supabase/migrations/`:
+
+- `20260920000000_create_tracer.sql` — `tracer` table, seed row, RLS
+  anon-read policy (milestone 1).
+- `20260920120000_create_kanban_tables.sql` — `boards`, `columns`,
+  `cards` tables with cascade-delete FKs, ordering indexes, and RLS
+  full-access anon policies (milestone 2; no auth yet).
+- `20260920120100_seed_demo_board.sql` — one demo board ('Emerald Demo
+  Board') with 3 columns and 5 cards, idempotent.
+
+Generated TypeScript types for all public tables live in
+`lib/database.types.ts` (regenerate with
+`supabase gen types typescript --project-id rgkrnztyzqvnrsgjzjjg --schema public > lib/database.types.ts`).
 
 **Option A — CLI (linked project):**
 

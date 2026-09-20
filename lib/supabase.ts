@@ -1,35 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "./database.types.js";
 
-/**
- * Database shape for the kanban app. Extend as new tables land
- * (milestone 2 adds boards/columns/cards).
- */
-export interface Database {
-  public: {
-    Tables: {
-      tracer: {
-        Row: {
-          id: number;
-          message: string;
-          created_at: string;
-        };
-        Insert: {
-          id?: number;
-          message: string;
-          created_at?: string;
-        };
-        Update: {
-          id?: number;
-          message?: string;
-          created_at?: string;
-        };
-        Relationships: [];
-      };
-    };
-    Views: Record<string, never>;
-    Functions: Record<string, never>;
-  };
-}
+export type { Database } from "./database.types.js";
 
 export type AppSupabaseClient = SupabaseClient<Database>;
 
