@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-abyss: var(--abyss);
+  --color-abyss-2: var(--abyss-2);
+  --color-panel: var(--panel);
+  --color-panel-edge: var(--panel-edge);
+  --color-emerald-hi: var(--emerald-hi);
+  --color-emerald: var(--emerald);
+  --color-emerald-lo: var(--emerald-lo);
+  --color-gild: var(--gild);
+  --color-mist: var(--mist);
+  --color-mist-dim: var(--mist-dim);
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-space-grotesk);
+}
+
+:root {
+  /* Emerald palette — deep green-black void, glowing emerald, champagne gild */
+  --abyss: #04110d;
+  --abyss-2: #071a14;
+  --panel: #0a211a;
+  --panel-edge: #1c4a3a;
+  --emerald-hi: #6ef7c0;
+  --emerald: #2ee6a0;
+  --emerald-lo: #0f8f63;
+  --gild: #e8d5a3;
+  --mist: #d9efe6;
+  --mist-dim: #8fb3a6;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--abyss);
+  color: var(--mist);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Otherworldly radial glow behind the shell — emerald light rising from the deep */
+.emerald-aura {
+  position: relative;
+  isolation: isolate;
+}
+
+.emerald-aura::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 90% 60% at 50% -10%,
+      color-mix(in oklab, var(--emerald) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 85% 110%,
+      color-mix(in oklab, var(--emerald-lo) 22%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(180deg, var(--abyss-2), var(--abyss));
+}
+
+/* Fine hairline glow used on panels and the header rule */
+.edge-glow {
+  border: 1px solid color-mix(in oklab, var(--panel-edge) 80%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--emerald-hi) 12%, transparent),
+    0 0 24px color-mix(in oklab, var(--emerald) 8%, transparent);
+}

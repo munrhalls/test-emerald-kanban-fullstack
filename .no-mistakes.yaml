@@ -1,5 +1,14 @@
-# no-mistakes pipeline configuration
+# no-mistakes repo config for test-emerald-kanban-fullstack.
+#
+# product_surface is a scope-check declaration, not a daemon field: the repo
+# config parser ignores unknown keys, and the scope-check skill reads this
+# block to assert 1:1 coverage between the product's live surfaces and the
+# pipeline's coverage mechanisms before any `axi run`.
+
 product_surface:
+  - path: "src/app/page.tsx"
+    kind: web-ui
+    drives: "npm run dev, then open http://localhost:3000; the home page renders the Emerald theme shell and the live conduit card fed by getTracerValue() in src/lib/tracer.ts"
   - path: lib
     kind: library
     drives: [typecheck]
@@ -11,15 +20,28 @@ product_surface:
     drives: [manual-review]
 
 commands:
+  lint: "npm run lint"
   test: npm run typecheck
 
 test:
   instructions: |
-    The live surface is the hosted Supabase project (tracer table) plus the
-    typed client in lib/. Validate by running `npm run typecheck` and, when
-    NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are set, calling
-    getTracerValue() and expecting the seed message. Without credentials the
-    migration SQL and client factory are reviewed statically.
+    Product surfaces and how to drive them live:
+    - Web UI: `npm run dev` (or `npm run build && npm run start`), then open
+      http://localhost:3000 in a browser. Verify the Emerald theme renders
+      (dark green-black background, emerald accents, Fraunces display font)
+      and the "Live conduit" card shows the value returned by
+      `getTracerValue()` from `src/lib/tracer.ts` (currently a hardcoded
+      placeholder string until wired to lib/getTracerValue.ts). Check at
+      least one narrow portrait viewport and one landscape viewport for
+      horizontal overflow or broken layout.
+    - Data layer: the live surface is the hosted Supabase project (tracer
+      table) plus the typed client in lib/. Validate by running
+      `npm run typecheck` and, when NEXT_PUBLIC_SUPABASE_URL /
+      NEXT_PUBLIC_SUPABASE_ANON_KEY are set, calling getTracerValue() and
+      expecting the seed message. Without credentials the migration SQL and
+      client factory are reviewed statically.
+    `npm run lint` must pass. There is no unit-test suite yet; the live
+    browser drive is the behavioral evidence for this milestone.
 
 ignore_patterns:
   - node_modules/**
