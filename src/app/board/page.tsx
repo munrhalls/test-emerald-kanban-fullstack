@@ -18,6 +18,7 @@ export default async function BoardPage() {
     .from("cards")
     .select("id, title, description")
     .order("created_at", { ascending: true })
+    .order("id", { ascending: true })
     .limit(1)
     .maybeSingle();
 
