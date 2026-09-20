@@ -9,6 +9,9 @@ product_surface:
   - path: "src/app/page.tsx"
     kind: web-ui
     drives: "npm run dev, then open http://localhost:3000; the home page renders the Emerald theme shell and the live conduit card fed by getTracerValue() in src/lib/tracer.ts"
+  - path: "src/app/board/page.tsx"
+    kind: web-ui
+    drives: "npm run dev, then open http://localhost:3000/board (dev may pick another port if 3000 is busy); the page renders an 'Edit card' form bound to a seeded card; submitting it persists title/description to Supabase via the updateCardAction server action in lib/cards/update.ts and the new values render after refresh"
   - path: lib
     kind: library
     drives: [typecheck]
@@ -34,6 +37,13 @@ test:
       placeholder string until wired to lib/getTracerValue.ts). Check at
       least one narrow portrait viewport and one landscape viewport for
       horizontal overflow or broken layout.
+    - Board page: open http://localhost:3000/board. Verify the 'Edit card'
+      form renders with the seeded card's title/description prefilled,
+      submit a changed title, then reload the page and confirm the new
+      title is prefilled (proves the updateCardAction server action in
+      lib/cards/update.ts persisted to Supabase). Requires
+      NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local
+      (values in supabase/README.md).
     - Data layer: the live surface is the hosted Supabase project (tracer
       table) plus the typed client in lib/. Validate by running
       `npm run typecheck` and, when NEXT_PUBLIC_SUPABASE_URL /
