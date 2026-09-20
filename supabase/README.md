@@ -5,10 +5,18 @@ generated client and needs no ORM/migration step before the first query.
 
 ## Project
 
-A free-tier Supabase project hosts the `tracer` table. The project URL and
-anon key go in `.env.local` (see `.env.example`); they are read by
-`lib/supabase.ts` via `NEXT_PUBLIC_SUPABASE_URL` and
-`NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+A free-tier Supabase project hosts the `tracer` table.
+
+- **Project**: `emerald-kanban` (org `emerald-kanban`, region `eu-west-1`)
+- **Project ref**: `rgkrnztyzqvnrsgjzjjg`
+- **Project URL**: `https://rgkrnztyzqvnrsgjzjjg.supabase.co`
+- **Publishable key**: `sb_publishable_ckU5i3q4B2lkbMyT68Y1bQ_hDirbsRy`
+
+The project URL and anon/publishable key go in `.env.local` (see
+`.env.example`); they are read by `lib/supabase.ts` via
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+Both values are safe to expose client-side (RLS gates access) — the
+service_role / `sb_secret_` keys are NOT and must never be committed.
 
 ## Getting credentials
 
