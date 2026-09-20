@@ -14,9 +14,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Theme tokens live in `src/app/globals.css` under `@theme inline` (abyss/panel/emerald/gild/mist palette, `font-display`/`font-body`).
 - Font pairing: Fraunces (display) + Space Grotesk (body) via `next/font/google` in `src/app/layout.tsx`.
 - Data integration point: `getTracerValue()` in `src/lib/tracer.ts` — a follow-up task wires it to Supabase; keep the signature stable.
-- Supabase access goes through `getSupabaseClient()` in `lib/supabase.ts`; DB types are generated into `lib/database.types.ts` (never hand-edited). Schema, credentials, and regeneration: `supabase/README.md`.
-- Card ops live one-per-file under `lib/cards/` (single responsibility). `src/app/board/page.tsx` is assembled from per-op fragments behind marker comments — edit only your own fragment.
-- Run: `npm run dev` → http://localhost:3000 (`/board` needs `.env.local`, see `README.md`)
+- Data layer: Supabase; `lib/database.types.ts` is generated from the schema — never hand-edit it. Schema, migrations, and the regen command are documented in `supabase/README.md`.
+- Run: `npm run dev` → http://localhost:3000
 
 ## Maintaining this file
 

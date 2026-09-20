@@ -34,7 +34,7 @@ supabase projects create <name> --org-id <org> --db-password <pw> --region <regi
 supabase projects api-keys --project-ref <ref>   # shows the anon key
 ```
 
-## Applying the migration
+## Applying the migrations
 
 The schema lives in `supabase/migrations/`:
 
@@ -60,7 +60,8 @@ supabase db push
 **Option B — dashboard SQL editor:**
 
 Paste the contents of each migration file (in filename order) into
-Dashboard -> SQL Editor -> New query, then Run.
+Dashboard -> SQL Editor -> New query, then Run. The kanban migrations
+are idempotent, so re-running them is safe.
 
 ## Verifying
 

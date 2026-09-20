@@ -40,6 +40,7 @@ alter table public.boards enable row level security;
 alter table public.columns enable row level security;
 alter table public.cards enable row level security;
 
+drop policy if exists "boards are fully accessible by anon" on public.boards;
 create policy "boards are fully accessible by anon"
   on public.boards
   for all
@@ -47,6 +48,7 @@ create policy "boards are fully accessible by anon"
   using (true)
   with check (true);
 
+drop policy if exists "columns are fully accessible by anon" on public.columns;
 create policy "columns are fully accessible by anon"
   on public.columns
   for all
@@ -54,6 +56,7 @@ create policy "columns are fully accessible by anon"
   using (true)
   with check (true);
 
+drop policy if exists "cards are fully accessible by anon" on public.cards;
 create policy "cards are fully accessible by anon"
   on public.cards
   for all
