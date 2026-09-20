@@ -1,0 +1,26 @@
+# no-mistakes pipeline configuration
+product_surface:
+  - path: lib
+    kind: library
+    drives: [typecheck]
+  - path: supabase/migrations
+    kind: sql-migrations
+    drives: [manual-review]  # applied to hosted Supabase; no local DB in this repo
+  - path: supabase/README.md
+    kind: docs
+    drives: [manual-review]
+
+commands:
+  test: npm run typecheck
+
+test:
+  instructions: |
+    The live surface is the hosted Supabase project (tracer table) plus the
+    typed client in lib/. Validate by running `npm run typecheck` and, when
+    NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY are set, calling
+    getTracerValue() and expecting the seed message. Without credentials the
+    migration SQL and client factory are reviewed statically.
+
+ignore_patterns:
+  - node_modules/**
+  - package-lock.json
