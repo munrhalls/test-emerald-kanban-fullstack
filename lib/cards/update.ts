@@ -17,11 +17,8 @@ interface UpdateCardInput {
  * single server-action endpoint.
  * Single responsibility: this module owns card updates only; create,
  * read, and delete live in sibling modules owned by other crewmates.
- *
- * Returns the updated row count so the caller can distinguish "card not
- * found" from a successful write.
  */
-async function updateCard(input: UpdateCardInput): Promise<number> {
+async function updateCard(input: UpdateCardInput): Promise<void> {
   const title = input.title.trim();
   if (!input.id) {
     throw new Error("updateCard: card id is required");
@@ -31,18 +28,16 @@ async function updateCard(input: UpdateCardInput): Promise<number> {
   }
 
   const supabase = getSupabaseClient();
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("cards")
     .update({ title, description: input.description ?? null })
-    .eq("id", input.id)
-    .select("id");
+    .eq("id", input.id);
 
   if (error) {
     throw new Error(`Failed to update card ${input.id}: ${error.message}`);
   }
 
   revalidatePath("/board");
-  return data?.length ?? 0;
 }
 
 /**

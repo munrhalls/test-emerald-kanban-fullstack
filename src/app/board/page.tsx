@@ -19,7 +19,7 @@ export default async function BoardPage() {
     .select("id, title, description")
     .order("created_at", { ascending: true })
     .limit(1)
-    .single();
+    .maybeSingle();
 
   return (
     <div className="flex flex-1 flex-col">
@@ -47,7 +47,11 @@ export default async function BoardPage() {
           >
             Edit card
           </h2>
-          {error || !card ? (
+          {error ? (
+            <p className="mt-3 font-body text-sm text-mist-dim">
+              Could not load cards: {error.message}
+            </p>
+          ) : !card ? (
             <p className="mt-3 font-body text-sm text-mist-dim">
               No card available to edit yet.
             </p>
@@ -63,6 +67,8 @@ export default async function BoardPage() {
                 </span>
                 <input
                   required
+                  pattern="\s*\S+.*"
+                  title="Title must contain at least one non-space character"
                   name="title"
                   defaultValue={card.title}
                   className="rounded-lg border border-panel-edge bg-abyss px-3 py-2 font-body text-sm text-mist outline-none focus:border-emerald"
