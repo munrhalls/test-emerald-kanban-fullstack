@@ -59,7 +59,7 @@ supabase db push
 
 **Option B — dashboard SQL editor:**
 
-Paste the contents of the migration file into
+Paste the contents of each migration file (in filename order) into
 Dashboard -> SQL Editor -> New query, then Run.
 
 ## Verifying

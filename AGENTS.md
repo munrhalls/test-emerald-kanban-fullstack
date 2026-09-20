@@ -10,11 +10,13 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Project notes
 
-- Emerald Kanban — milestone 1 tracer bullet. Next.js 16 (App Router) + React 19 + Tailwind CSS v4.
+- Emerald Kanban — Next.js 16 (App Router) + React 19 + Tailwind CSS v4. Milestones and parallel-work split live in `PLAN.md`.
 - Theme tokens live in `src/app/globals.css` under `@theme inline` (abyss/panel/emerald/gild/mist palette, `font-display`/`font-body`).
 - Font pairing: Fraunces (display) + Space Grotesk (body) via `next/font/google` in `src/app/layout.tsx`.
 - Data integration point: `getTracerValue()` in `src/lib/tracer.ts` — a follow-up task wires it to Supabase; keep the signature stable.
-- Run: `npm run dev` → http://localhost:3000
+- Supabase access goes through `getSupabaseClient()` in `lib/supabase.ts`; DB types are generated into `lib/database.types.ts` (never hand-edited). Schema, credentials, and regeneration: `supabase/README.md`.
+- Card ops live one-per-file under `lib/cards/` (single responsibility). `src/app/board/page.tsx` is assembled from per-op fragments behind marker comments — edit only your own fragment.
+- Run: `npm run dev` → http://localhost:3000 (`/board` needs `.env.local`, see `README.md`)
 
 ## Maintaining this file
 
