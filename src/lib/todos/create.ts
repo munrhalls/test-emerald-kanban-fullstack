@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getSupabaseClient } from "../../../lib/supabase.js";
+import { getSupabaseClient } from "../../../lib/supabase";
 
 export async function createTodo(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();

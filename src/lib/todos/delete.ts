@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getSupabaseClient } from "../../../lib/supabase.js";
+import { getSupabaseClient } from "../../../lib/supabase";
 
 export async function deleteTodo(formData: FormData) {
   const id = String(formData.get("id") ?? "");

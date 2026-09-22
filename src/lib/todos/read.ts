@@ -1,4 +1,4 @@
-import { getSupabaseClient } from "../../../lib/supabase.js";
+import { getSupabaseClient } from "../../../lib/supabase";
 
 export type Todo = {
   id: string;
