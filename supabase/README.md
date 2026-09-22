@@ -5,8 +5,9 @@ generated client and needs no ORM/migration step before the first query.
 
 ## Project
 
-A free-tier Supabase project hosts the `tracer` table plus the
-milestone-2 kanban tables (`boards`, `columns`, `cards`).
+A free-tier Supabase project hosts the `tracer` table, the milestone-2
+kanban tables (`boards`, `columns`, `cards`), and the `todos` table
+(todos experiment, independent flat task list).
 
 - **Project**: `emerald-kanban` (org `emerald-kanban`, region `eu-west-1`)
 - **Project ref**: `rgkrnztyzqvnrsgjzjjg`
@@ -45,6 +46,9 @@ The schema lives in `supabase/migrations/`:
   full-access anon policies (milestone 2; no auth yet).
 - `20260920120100_seed_demo_board.sql` — one demo board ('Emerald Demo
   Board') with 3 columns and 5 cards, idempotent.
+- `20260922000000_create_todos.sql` — `todos` table (flat task list,
+  independent of the kanban schema) with an ordering index and an RLS
+  full-access anon policy (todos experiment; no auth yet), idempotent.
 
 Generated TypeScript types for all public tables live in
 `lib/database.types.ts` (regenerate with
