@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getTracerValue } from "@/lib/tracer";
 
 export default async function Home() {
@@ -18,12 +19,12 @@ export default async function Home() {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <a
+            <Link
               href="/todos"
               className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-emerald hover:text-emerald-hi sm:text-xs"
             >
               Todos
-            </a>
+            </Link>
             <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-mist-dim sm:text-xs">
               Milestone&nbsp;1 · Tracer
             </span>

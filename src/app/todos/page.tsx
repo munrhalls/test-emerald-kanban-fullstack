@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { listTodos, type Todo } from "@/lib/todos/read";
 import { createTodo } from "@/lib/todos/create";
 import { toggleTodo } from "@/lib/todos/update";
@@ -25,12 +26,12 @@ export default async function TodosPage() {
               Emerald&nbsp;Todos
             </span>
           </div>
-          <a
+          <Link
             href="/"
             className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-mist-dim hover:text-emerald sm:text-xs"
           >
             Home
-          </a>
+          </Link>
         </div>
       </header>
 
