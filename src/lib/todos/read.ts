@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { getSupabaseClient } from "../../../lib/supabase.js";
 
 export type Todo = {
   id: string;
@@ -9,6 +9,7 @@ export type Todo = {
 };
 
 export async function listTodos(): Promise<Todo[]> {
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from("todos")
     .select("*")

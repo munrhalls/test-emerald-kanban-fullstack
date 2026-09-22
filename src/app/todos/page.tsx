@@ -1,10 +1,16 @@
-import { listTodos } from "@/lib/todos/read";
+import { listTodos, type Todo } from "@/lib/todos/read";
 import { createTodo } from "@/lib/todos/create";
 import { toggleTodo } from "@/lib/todos/update";
 import { deleteTodo } from "@/lib/todos/delete";
 
 export default async function TodosPage() {
-  const todos = await listTodos();
+  let todos: Todo[] = [];
+  let loadError: string | null = null;
+  try {
+    todos = await listTodos();
+  } catch (err) {
+    loadError = err instanceof Error ? err.message : "Failed to load todos.";
+  }
 
   return (
     <div className="flex flex-1 flex-col">
@@ -58,7 +64,11 @@ export default async function TodosPage() {
         </form>
 
         <ul className="flex flex-col gap-2">
-          {todos.length === 0 ? (
+          {loadError ? (
+            <li className="edge-glow rounded-xl bg-panel/40 px-4 py-6 text-center font-body text-sm text-mist-dim">
+              Couldn&apos;t load todos: {loadError}
+            </li>
+          ) : todos.length === 0 ? (
             <li className="edge-glow rounded-xl bg-panel/40 px-4 py-6 text-center font-body text-sm text-mist-dim">
               Nothing here yet — add your first todo above.
             </li>
