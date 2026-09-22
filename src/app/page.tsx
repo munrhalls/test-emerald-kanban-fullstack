@@ -17,9 +17,17 @@ export default async function Home() {
               Emerald&nbsp;Kanban
             </span>
           </div>
-          <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-mist-dim sm:text-xs">
-            Milestone&nbsp;1 · Tracer
-          </span>
+          <div className="flex items-center gap-4">
+            <a
+              href="/todos"
+              className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-emerald hover:text-emerald-hi sm:text-xs"
+            >
+              Todos
+            </a>
+            <span className="font-body text-[0.65rem] uppercase tracking-[0.3em] text-mist-dim sm:text-xs">
+              Milestone&nbsp;1 · Tracer
+            </span>
+          </div>
         </div>
       </header>
 

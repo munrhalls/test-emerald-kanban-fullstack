@@ -9,6 +9,9 @@ product_surface:
   - path: "src/app/page.tsx"
     kind: web-ui
     drives: "npm run dev, then open http://localhost:3000; the home page renders the Emerald theme shell and the live conduit card fed by getTracerValue() in src/lib/tracer.ts"
+  - path: "src/app/todos/page.tsx"
+    kind: web-ui
+    drives: "npm run dev, then open http://localhost:3000/todos; add a todo via the form, toggle it done via the circular check button, delete it via the Delete button - each action is a server action hitting the live Supabase todos table (src/lib/todos/*.ts). Verify the list updates and a row persists in Supabase across a manual page refresh. Check a narrow portrait viewport and a landscape viewport for overflow."
   - path: lib
     kind: library
     drives: [typecheck]
@@ -40,6 +43,16 @@ test:
       NEXT_PUBLIC_SUPABASE_ANON_KEY are set, calling getTracerValue() and
       expecting the seed message. Without credentials the migration SQL and
       client factory are reviewed statically.
+    - Todos: `src/lib/todos/{read,create,update,delete}.ts` are server
+      actions against the hosted Supabase `todos` table (migration
+      supabase/migrations/20260922000000_create_todos.sql). Requires that
+      migration to have been applied to the live project (it is not applied
+      automatically - there is no linked Supabase CLI project or DB
+      credential in this environment; apply it once via the Supabase
+      dashboard SQL editor per supabase/README.md Option B). Once applied,
+      drive it live via the /todos page above; without it applied, the page
+      still renders (empty state or a Supabase error) and the code is
+      reviewed statically.
     `npm run lint` must pass. There is no unit-test suite yet; the live
     browser drive is the behavioral evidence for this milestone.
 
